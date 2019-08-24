@@ -1,4 +1,3 @@
-language: generic
 sudo: required
 services:
   - docker
@@ -7,7 +6,7 @@ before_install:
   - docker build -t jahirbnavaz/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true jahirbnavaz/react-test npm test
+  - docker run jahirbnavaz/react-test npm test -- --coverage
 
 after_success:
   - docker build -t jahirbnavaz/multi-client ./client
@@ -15,7 +14,7 @@ after_success:
   - docker build -t jahirbnavaz/multi-server ./server
   - docker build -t jahirbnavaz/multi-worker ./worker
   # Log in to the docker CLI
-  - docker login -u jahirbnavaz -p Born2win$$
+  - docker "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
   - docker push jahirbnavaz/multi-client
   - docker push jahirbnavaz/multi-nginx
