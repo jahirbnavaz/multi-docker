@@ -15,7 +15,7 @@ after_success:
   - docker build -t jahirbnavaz/multi-server ./server
   - docker build -t jahirbnavaz/multi-worker ./worker
   # Log in to the docker CLI
-  - docker login --username jahirbnavaz --password-stdin
+  - docker login -u jahirbnavaz -p Born2win$$
   # Take those images and push them to docker hub
   - docker push jahirbnavaz/multi-client
   - docker push jahirbnavaz/multi-nginx
